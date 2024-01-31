@@ -96,7 +96,10 @@ function requestFontFiles (data) {
 
 function requestFontFile (font) {
   return new Promise((resolve, reject) => {
-    var ext = '"data:application/x-font-' + font.match(/url\(.*\.(.{3,5})\)/)[ 1 ] + ';base64,';
+    var ext = '"data:application/x-font-eot;base64,';
+    if (font.match(/url\(.*\.(.{3,5})\)/)) {
+      ext = '"data:application/x-font-' + font.match(/url\(.*\.(.{3,5})\)/)[ 1 ] + ';base64,';
+    }
     font    = font.replace(/url\((.+?)\)/gi, '\$1');
     request({
       url : font,
